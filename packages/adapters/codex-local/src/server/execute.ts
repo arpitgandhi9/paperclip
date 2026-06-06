@@ -36,6 +36,7 @@ import {
   renderPaperclipWakePrompt,
   stringifyPaperclipWakePayload,
   DEFAULT_PAPERCLIP_AGENT_PROMPT_TEMPLATE,
+  PAPERCLIP_RTK_SHELL_GUIDANCE,
   joinPromptSections,
 } from "@paperclipai/adapter-utils/server-utils";
 import {
@@ -666,6 +667,7 @@ export async function execute(ctx: AdapterExecutionContext): Promise<AdapterExec
     wakePrompt,
     codexFallbackHandoffNote,
     sessionHandoffNote,
+    PAPERCLIP_RTK_SHELL_GUIDANCE,
     renderedPrompt,
   ]);
   const promptMetrics = {
@@ -674,6 +676,7 @@ export async function execute(ctx: AdapterExecutionContext): Promise<AdapterExec
     bootstrapPromptChars: renderedBootstrapPrompt.length,
     wakePromptChars: wakePrompt.length,
     sessionHandoffChars: sessionHandoffNote.length,
+    rtkShellGuidanceChars: PAPERCLIP_RTK_SHELL_GUIDANCE.length,
     heartbeatPromptChars: renderedPrompt.length,
   };
 

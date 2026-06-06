@@ -53,4 +53,5 @@ Operational fields:
 
 Notes:
 - When Paperclip realizes a workspace/runtime for a run, it injects PAPERCLIP_WORKSPACE_* and PAPERCLIP_RUNTIME_* env vars for agent-side tooling.
+- Paperclip injects compact RTK shell guidance into each prompt. When \`rtk\` is installed, Claude should prefer RTK wrappers for exploratory commands and noisy validation output, falling back to raw commands when exact full output is needed or RTK is unavailable.
 `;

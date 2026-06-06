@@ -129,6 +129,12 @@ export const DEFAULT_PAPERCLIP_AGENT_PROMPT_TEMPLATE = [
   "- Respect budget, pause/cancel, approval gates, and company boundaries.",
 ].join("\n");
 
+export const PAPERCLIP_RTK_SHELL_GUIDANCE = [
+  "Shell-output token discipline:",
+  "- When `rtk` is installed, prefer RTK wrappers for exploratory commands and noisy validation output: `rtk git status`, `rtk git diff`, `rtk find \"*.ts\" .`, `rtk grep \"pattern\" .`, `rtk read <file> -l aggressive`, `rtk test <command>`, or `rtk err <command>`.",
+  "- Use raw commands when RTK is unavailable, the command is already small, RTK lacks a wrapper, or exact full output is required.",
+].join("\n");
+
 export interface PaperclipSkillEntry {
   key: string;
   runtimeName: string;

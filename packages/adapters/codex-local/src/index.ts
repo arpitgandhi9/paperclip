@@ -91,4 +91,5 @@ Notes:
 - Some model/tool combinations reject certain effort levels (for example minimal with web search enabled).
 - Fast mode is supported on GPT-5.4 and manual model IDs. When enabled for those models, Paperclip applies \`service_tier="fast"\` and \`features.fast_mode=true\`.
 - When Paperclip realizes a workspace/runtime for a run, it injects PAPERCLIP_WORKSPACE_* and PAPERCLIP_RUNTIME_* env vars for agent-side tooling.
+- Paperclip injects compact RTK shell guidance into each prompt. When \`rtk\` is installed, Codex should prefer RTK wrappers for exploratory commands and noisy validation output, falling back to raw commands when exact full output is needed or RTK is unavailable.
 `;

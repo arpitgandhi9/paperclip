@@ -3,6 +3,10 @@ import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { agentInstructionsService } from "../services/agent-instructions.js";
+import {
+  loadDefaultAgentInstructionsBundle,
+  resolveDefaultAgentInstructionsBundleRole,
+} from "../services/default-agent-instructions.js";
 
 type TestAgent = {
   id: string;
@@ -39,6 +43,29 @@ describe("agent instructions service", () => {
       await fs.rm(dir, { recursive: true, force: true });
       cleanupDirs.delete(dir);
     }));
+  });
+
+  it("loads RTK guidance in the default local coding-agent instruction bundle", async () => {
+    const files = await loadDefaultAgentInstructionsBundle(resolveDefaultAgentInstructionsBundleRole("engineer"));
+
+    expect(Object.keys(files).sort()).toEqual(["AGENTS.md", "RTK.md"]);
+    expect(files["AGENTS.md"]).toContain("See `./RTK.md`");
+    expect(files["RTK.md"]).toContain("rtk git status");
+    expect(files["RTK.md"]).toContain("rtk err pnpm -r typecheck");
+  });
+
+  it("loads RTK guidance in the CEO instruction bundle", async () => {
+    const files = await loadDefaultAgentInstructionsBundle(resolveDefaultAgentInstructionsBundleRole("ceo"));
+
+    expect(Object.keys(files).sort()).toEqual([
+      "AGENTS.md",
+      "HEARTBEAT.md",
+      "RTK.md",
+      "SOUL.md",
+      "TOOLS.md",
+    ]);
+    expect(files["AGENTS.md"]).toContain("See `./RTK.md`");
+    expect(files["RTK.md"]).toContain("Codex, Claude Code, and other local coding agents");
   });
 
   it("copies the existing bundle into the managed root when switching to managed mode", async () => {

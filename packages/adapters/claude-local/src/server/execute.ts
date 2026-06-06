@@ -44,6 +44,7 @@ import {
   shapePaperclipWorkspaceEnvForExecution,
   stringifyPaperclipWakePayload,
   DEFAULT_PAPERCLIP_AGENT_PROMPT_TEMPLATE,
+  PAPERCLIP_RTK_SHELL_GUIDANCE,
 } from "@paperclipai/adapter-utils/server-utils";
 import { shellQuote } from "@paperclipai/adapter-utils/ssh";
 import {
@@ -445,7 +446,7 @@ export async function execute(ctx: AdapterExecutionContext): Promise<AdapterExec
         `\nThe above agent instructions were loaded from ${instructionsFilePath}. ` +
         `Resolve any relative file references from ${instructionsFileDir}. ` +
         `This base directory is authoritative for sibling instruction files such as ` +
-        `./HEARTBEAT.md, ./SOUL.md, and ./TOOLS.md; do not resolve those from the parent agent directory.`;
+        `./HEARTBEAT.md, ./RTK.md, ./SOUL.md, and ./TOOLS.md; do not resolve those from the parent agent directory.`;
       combinedInstructionsContents = instructionsContent + pathDirective;
     } catch (err) {
       const reason = err instanceof Error ? err.message : String(err);
@@ -661,6 +662,7 @@ export async function execute(ctx: AdapterExecutionContext): Promise<AdapterExec
     wakePrompt,
     sessionHandoffNote,
     taskContextNote,
+    PAPERCLIP_RTK_SHELL_GUIDANCE,
     renderedPrompt,
   ]);
   const promptMetrics = {
@@ -669,6 +671,7 @@ export async function execute(ctx: AdapterExecutionContext): Promise<AdapterExec
     wakePromptChars: wakePrompt.length,
     sessionHandoffChars: sessionHandoffNote.length,
     taskContextChars: taskContextNote.length,
+    rtkShellGuidanceChars: PAPERCLIP_RTK_SHELL_GUIDANCE.length,
     heartbeatPromptChars: renderedPrompt.length,
   };
 

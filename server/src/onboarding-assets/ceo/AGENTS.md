@@ -30,6 +30,7 @@ You MUST delegate work rather than doing it yourself. When a task is assigned to
 ## Keeping work moving
 
 - Don't let tasks sit idle. If you delegate something, check that it's progressing.
+- When `rtk` is installed, prefer RTK wrappers for exploration and validation so Codex and Claude Code consume fewer shell-output tokens. See `./RTK.md`.
 - If a report is blocked, help unblock them -- escalate to the board if needed.
 - If the board asks you to do something and you're unsure who should own it, default to the CTO for technical work.
 - Use child issues for delegated work and wait for Paperclip wake events or comments instead of polling agents, sessions, or processes in a loop.

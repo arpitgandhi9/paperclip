@@ -655,6 +655,7 @@ describe.sequential("agent skill routes", () => {
       expect.objectContaining({
         "AGENTS.md": expect.stringContaining("You are the CEO."),
         "HEARTBEAT.md": expect.stringContaining("CEO Heartbeat Checklist"),
+        "RTK.md": expect.stringContaining("rtk git status"),
         "SOUL.md": expect.stringContaining("CEO Persona"),
         "TOOLS.md": expect.stringContaining("# Tools"),
       }),
@@ -682,8 +683,16 @@ describe.sequential("agent skill routes", () => {
         }),
         expect.objectContaining({
           "AGENTS.md": expect.stringMatching(/Start actionable work in the same heartbeat\.[\s\S]*Keep the work moving until it is done\./),
+          "RTK.md": expect.stringContaining("rtk test pnpm test"),
         }),
         { entryFile: "AGENTS.md", replaceExisting: false },
+      );
+      expect(mockAgentInstructionsService.materializeManagedBundle).toHaveBeenCalledWith(
+        expect.any(Object),
+        expect.objectContaining({
+          "AGENTS.md": expect.stringContaining("See `./RTK.md`"),
+        }),
+        expect.any(Object),
       );
       expect(mockAgentInstructionsService.materializeManagedBundle).toHaveBeenCalledWith(
         expect.any(Object),
@@ -707,6 +716,30 @@ describe.sequential("agent skill routes", () => {
         expect.any(Object),
       );
     });
+  });
+
+  it("materializes RTK guidance for default Codex agents", async () => {
+    const res = await requestApp(await createApp(), (baseUrl) => request(baseUrl)
+      .post("/api/companies/company-1/agents")
+      .send({
+        name: "Codex Engineer",
+        role: "engineer",
+        adapterType: "codex_local",
+        adapterConfig: {},
+      }));
+
+    expect([200, 201], JSON.stringify(res.body)).toContain(res.status);
+    expect(mockAgentInstructionsService.materializeManagedBundle).toHaveBeenCalledWith(
+      expect.objectContaining({
+        role: "engineer",
+        adapterType: "codex_local",
+      }),
+      expect.objectContaining({
+        "AGENTS.md": expect.stringContaining("See `./RTK.md`"),
+        "RTK.md": expect.stringContaining("Codex, Claude Code, and other local coding agents"),
+      }),
+      { entryFile: "AGENTS.md", replaceExisting: false },
+    );
   });
 
   it("includes canonical desired skills in hire approvals", async () => {

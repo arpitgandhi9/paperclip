@@ -224,6 +224,9 @@ describe("claude execute", () => {
       });
       const captured = JSON.parse(await fs.readFile(capturePath, "utf-8"));
       expect(captured.argv).toContain("--append-system-prompt-file");
+      expect(captured.prompt).toContain("Shell-output token discipline:");
+      expect(captured.prompt).toContain("rtk git status");
+      expect(captured.prompt).toContain("Use raw commands when RTK is unavailable");
     } finally {
       restore();
       await fs.rm(root, { recursive: true, force: true });
@@ -377,7 +380,7 @@ describe("claude execute", () => {
         `The above agent instructions were loaded from ${instructionsFile}. ` +
         `Resolve any relative file references from ${path.dirname(instructionsFile)}/. ` +
         `This base directory is authoritative for sibling instruction files such as ` +
-        `./HEARTBEAT.md, ./SOUL.md, and ./TOOLS.md; do not resolve those from the parent agent directory.`,
+        `./HEARTBEAT.md, ./RTK.md, ./SOUL.md, and ./TOOLS.md; do not resolve those from the parent agent directory.`,
       );
       expect(metaEvents).toHaveLength(2);
       expect(metaEvents[0]?.commandNotes).toHaveLength(0);
