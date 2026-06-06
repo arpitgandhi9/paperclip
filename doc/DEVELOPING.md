@@ -15,6 +15,33 @@ Current implementation status:
 - Node.js 20+
 - pnpm 9+
 
+## Token-Efficient Agent Shells
+
+This repo supports [RTK](https://github.com/rtk-ai/rtk), a CLI proxy that
+summarizes noisy command output before it reaches an agent's context. RTK is
+optional for humans, but recommended for AI-agent work in this repository.
+
+Install it from the upstream RTK project or Homebrew, then verify it is on
+`PATH`:
+
+```sh
+rtk --version
+```
+
+Prefer RTK wrappers for exploration and validation when exact full output is
+not needed:
+
+```sh
+rtk git status
+rtk git diff
+rtk grep "createCompany" .
+rtk read server/src/index.ts -l aggressive
+rtk test pnpm test
+rtk err pnpm -r typecheck
+```
+
+Project-specific agent instructions live in [`RTK.md`](../RTK.md).
+
 ## Dependency Lockfile Policy
 
 GitHub Actions owns `pnpm-lock.yaml`.
