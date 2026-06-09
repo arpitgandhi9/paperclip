@@ -128,6 +128,7 @@ export type {
   AgentAccessState,
   AgentChainOfCommandEntry,
   AgentDetail,
+  ClearAgentErrorResponse,
   AgentModelProfileConfig,
   AgentPermissions,
   AgentRuntimeConfig,
@@ -142,6 +143,15 @@ export type {
   AdapterEnvironmentCheck,
   AdapterEnvironmentTestResult,
 } from "./agent.js";
+export type {
+  AgentEligibilityAgent,
+  AgentEligibilityLifecycleReason,
+  AgentInvalidOrgChainAncestor,
+  AgentOrgChainEntry,
+  AgentOrgChainHealth,
+  AgentOrgChainInvalidReason,
+  AgentWorkEligibility,
+} from "../agent-eligibility.js";
 export type { AssetImage } from "./asset.js";
 export type {
   CreateDocumentAnnotationCommentRequest,
@@ -159,7 +169,7 @@ export type {
   DocumentTextRange,
   UpdateDocumentAnnotationThreadRequest,
 } from "./document-annotation.js";
-export type { Project, ProjectCodebase, ProjectCodebaseOrigin, ProjectGoalRef, ProjectManagedByPlugin, ProjectWorkspace } from "./project.js";
+export type { Project, ProjectBudgetSummary, ProjectCodebase, ProjectCodebaseOrigin, ProjectGoalRef, ProjectManagedByPlugin, ProjectWorkspace } from "./project.js";
 export type {
   CompanySearchHighlight,
   CompanySearchArtifactSummary,
@@ -217,6 +227,8 @@ export type {
 export type {
   CompanyArtifact,
   CompanyArtifactAgentSummary,
+  CompanyArtifactGroup,
+  CompanyArtifactGroupBy,
   CompanyArtifactIssueSummary,
   CompanyArtifactMediaKind,
   CompanyArtifactProjectSummary,
@@ -288,6 +300,9 @@ export type {
   RequestConfirmationTarget,
   RequestConfirmationPayload,
   RequestConfirmationResult,
+  RequestCheckboxConfirmationOption,
+  RequestCheckboxConfirmationPayload,
+  RequestCheckboxConfirmationResult,
   AcceptedPlanDecompositionStatus,
   AcceptedPlanDecompositionChild,
   AcceptedPlanDecomposition,
@@ -298,6 +313,7 @@ export type {
   SuggestTasksInteraction,
   AskUserQuestionsInteraction,
   RequestConfirmationInteraction,
+  RequestCheckboxConfirmationInteraction,
   IssueThreadInteraction,
   IssueThreadInteractionPayload,
   IssueThreadInteractionResult,
